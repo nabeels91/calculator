@@ -1,0 +1,32 @@
+h1 {
+    
+    color: blue;
+    text-align: center;
+
+}
+.calculator {
+    align-content: center;
+    margin: auto;
+    width:132px;
+    background: green;
+    padding: 10px;
+}
+
+.result {
+    display: flex;
+}
+
+.output {
+    background-color: pink;
+    border: 2px;
+    width: 98px;
+    margin-right: 4px;
+    
+}
+
+
+button {
+    background-color: beige;
+    height: 20px;
+    width: 30px;
+}
