@@ -8,6 +8,7 @@ const button7 = document.querySelector(".num7");
 const button8 = document.querySelector(".num8");
 const button9 = document.querySelector(".num9");
 const button0 = document.querySelector(".num0");
+const point = document.querySelector(".point");
 
 //here are the display and reset
 const display = document.querySelector(".output");
@@ -74,6 +75,11 @@ button0.addEventListener("click", ()=> {
     
 });
 
+point.addEventListener("click", ()=> {
+    currentVal += ".";
+    display.textContent = currentVal;
+    
+});
 
 function sum(val){
     val = parseFloat(currentVal);
