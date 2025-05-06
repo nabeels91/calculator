@@ -16,79 +16,126 @@ const reset = document.querySelector(".reset");
 
 //here are the operators
 const plus = document.querySelector(".plus");
+const minus = document.querySelector(".minus");
+const multiply = document.querySelector(".multi");
+const divide = document.querySelector(".divide");
+const equals = document.querySelector(".equals");
 
 let currentVal = "";
+// its probobly better that i add values as an object, to keep the signs 
+//under a key "sign" and the value inputted in Value.
+let valArray = [];
 
 reset.addEventListener("click", ()=>{
     currentVal = "";
     display.textContent = "";
+    valArray = [];
 });
 
 button1.addEventListener("click", ()=> {
+   if(currentVal.length<=9){
     currentVal += "1";
     display.textContent = currentVal;
+}
     
 });
 button2.addEventListener("click", ()=> {
+    if(currentVal.length<=9){
     currentVal += "2";
     display.textContent = currentVal;
+    }
     
 });
 button3.addEventListener("click", ()=> {
+    if(currentVal.length<=9){
     currentVal += "3";
     display.textContent = currentVal;
+    }
     
 });
 button4.addEventListener("click", ()=> {
+    if(currentVal.length<=9){
     currentVal += "4";
     display.textContent = currentVal;
-    
+    } 
 });
 button5.addEventListener("click", ()=> {
+    if(currentVal.length<=9){
     currentVal += "5";
     display.textContent = currentVal;
-    
+    }
 });
 button6.addEventListener("click", ()=> {
+    if(currentVal.length<=9){
     currentVal += "6";
     display.textContent = currentVal;
+    }
     
 });
 button7.addEventListener("click", ()=> {
+    if(currentVal.length<=9){
     currentVal += "7";
     display.textContent = currentVal;
+    }
     
 });
 button8.addEventListener("click", ()=> {
+    if(currentVal.length<=9){
     currentVal += "8";
     display.textContent = currentVal;
+    }
     
 });
 button9.addEventListener("click", ()=> {
+    if(currentVal.length<=9){
     currentVal += "9";
     display.textContent = currentVal;
+    }
     
 });
 button0.addEventListener("click", ()=> {
+    if(currentVal.length<=9){
     currentVal += "0";
     display.textContent = currentVal;
-    
+    }
 });
 
 point.addEventListener("click", ()=> {
+    if(currentVal.length<=9 ){
     currentVal += ".";
     display.textContent = currentVal;
+    }
     
 });
 
-function sum(val){
-    val = parseFloat(currentVal);
+// i want to to add to valArray when the operators are selected.
+// this will first parse the value then add it to the array.
+// when the ac is selected it clears out the array.
+// when i press equals or any operator the value continues to work on the 
+// the array. 
+
+
+function sum(arrs){
+    if(arrs.length <=0){
+        return 0;
+    }
     
-    return val+= val;
-}
+};
 
-plus.addEventListener("click",  (val) =>{
-    val = parseFloat(currentVal);
-    return val+= val;
+    
 
+plus.addEventListener("click", ()=> {
+    valArray.push("+");
+    if(currentVal === ""){  
+        valArray.push(0);
+    }
+    else {
+        
+        valArray.push(parseFloat(currentVal));
+    }
+    
+    currentVal = "";
+    display.textContent = "";
+    
 });
+
