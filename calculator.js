@@ -22,80 +22,82 @@ const divide = document.querySelector(".divide");
 const equals = document.querySelector(".equals");
 
 let currentVal = "";
-// its probobly better that i add values as an object, to keep the signs 
-//under a key "sign" and the value inputted in Value.
-let valArray = [];
+let currentResult = 0;
+display.textContent = currentVal;
+let inputArray = [{sign: "+", value: 0}];
 
 reset.addEventListener("click", ()=>{
     currentVal = "";
-    display.textContent = "";
-    valArray = [];
+    currentResult = 0;
+    display.textContent = 0;
+    inputArray =[];
+    
 });
 
 button1.addEventListener("click", ()=> {
    if(currentVal.length<=9){
-    currentVal += "1";
+    currentVal += 1;
     display.textContent = currentVal;
 }
     
 });
 button2.addEventListener("click", ()=> {
     if(currentVal.length<=9){
-    currentVal += "2";
+    currentVal += 2;
     display.textContent = currentVal;
     }
     
 });
 button3.addEventListener("click", ()=> {
     if(currentVal.length<=9){
-    currentVal += "3";
+    currentVal += 3;
     display.textContent = currentVal;
     }
     
 });
 button4.addEventListener("click", ()=> {
     if(currentVal.length<=9){
-    currentVal += "4";
+    currentVal += 4;
     display.textContent = currentVal;
     } 
 });
 button5.addEventListener("click", ()=> {
     if(currentVal.length<=9){
-    currentVal += "5";
+    currentVal += 5;
     display.textContent = currentVal;
     }
 });
 button6.addEventListener("click", ()=> {
     if(currentVal.length<=9){
-    currentVal += "6";
+    currentVal += 6;
     display.textContent = currentVal;
     }
     
 });
 button7.addEventListener("click", ()=> {
     if(currentVal.length<=9){
-    currentVal += "7";
+    currentVal += 7;
     display.textContent = currentVal;
     }
     
 });
 button8.addEventListener("click", ()=> {
     if(currentVal.length<=9){
-    currentVal += "8";
+    currentVal += 8;
     display.textContent = currentVal;
     }
     
 });
 button9.addEventListener("click", ()=> {
     if(currentVal.length<=9){
-    currentVal += "9";
+    currentVal += 9;
     display.textContent = currentVal;
     }
     
 });
 button0.addEventListener("click", ()=> {
     if(currentVal.length<=9){
-    currentVal += "0";
+    currentVal += 0;
     display.textContent = currentVal;
     }
 });
@@ -115,27 +117,60 @@ point.addEventListener("click", ()=> {
 // the array. 
 
 
-function sum(arrs){
-    if(arrs.length <=0){
-        return 0;
-    }
-    
-};
-
-    
-
 plus.addEventListener("click", ()=> {
-    valArray.push("+");
-    if(currentVal === ""){  
-        valArray.push(0);
+    if(currentVal === "" || currentVal === NaN ){  
+        currentVal=0;
+        currentResult += currentVal;
+        inputArray.push({sign:"+" , value:currentVal,});
     }
     else {
-        
-        valArray.push(parseFloat(currentVal));
-    }
+        currentVal= parseFloat(currentVal);
+        currentResult += currentVal;
+        inputArray.push({sign:"+" , value:currentVal,});
+    }    
     
     currentVal = "";
-    display.textContent = "";
+    display.textContent = currentResult;  
+});
+
+minus.addEventListener("click", ()=> {
+    if(currentVal === "" || currentVal === NaN ){  
+        currentVal=0;
+        currentResult -= currentVal;
+        inputArray.push({sign:"-" , value:currentVal,});
+    }
+    else {
+        currentVal= parseFloat(currentVal);
+        currentResult -= currentVal;
+        inputArray.push({sign:"-" , value:currentVal,});
+    }  
+    
+    currentVal = "";
+    display.textContent = currentResult;
     
 });
 
+equals.addEventListener("click", ()=> {
+    let lastSign = inputArray[inputArray.length -1].sign;
+    
+    if(lastSign === "+"){
+        display.textContent = currentResult + parseFloat(currentVal);
+    } else 
+    if(lastSign === "-"){
+        display.textContent = currentResult - parseFloat(currentVal);
+
+    } else 
+    if(lastSign === "*"){
+        display.textContent = currentResult * parseFloat(currentVal);
+
+    } else
+    if(lastSign === "/"){
+    display.textContent = currentResult / parseFloat(currentVal);
+    }
+    else 
+    if(!lastSign){
+        display.textContent = currentResult ;
+
+    }
+
+})
