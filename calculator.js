@@ -21,17 +21,21 @@ const multiply = document.querySelector(".multi");
 const divide = document.querySelector(".divide");
 const equals = document.querySelector(".equals");
 
+
 let currentVal = "";
-let currentResult = 0;
-display.textContent = currentVal;
-let inputArray = [{sign: "+", value: 0}];
+let previousVal = 0
+let currentRes = 0;
+let operand = "";
+display.textContent = "";
+
 
 reset.addEventListener("click", ()=>{
     currentVal = "";
-    currentResult = 0;
+    currentRes = 0;
+    previousVal =0;
+    operand = "";
     display.textContent = 0;
-    inputArray =[];
-    
+   
 });
 
 button1.addEventListener("click", ()=> {
@@ -45,15 +49,13 @@ button2.addEventListener("click", ()=> {
     if(currentVal.length<=9){
     currentVal += 2;
     display.textContent = currentVal;
-    }
-    
+    } 
 });
 button3.addEventListener("click", ()=> {
     if(currentVal.length<=9){
     currentVal += 3;
     display.textContent = currentVal;
     }
-    
 });
 button4.addEventListener("click", ()=> {
     if(currentVal.length<=9){
@@ -72,105 +74,146 @@ button6.addEventListener("click", ()=> {
     currentVal += 6;
     display.textContent = currentVal;
     }
-    
 });
 button7.addEventListener("click", ()=> {
     if(currentVal.length<=9){
     currentVal += 7;
     display.textContent = currentVal;
     }
-    
 });
 button8.addEventListener("click", ()=> {
     if(currentVal.length<=9){
     currentVal += 8;
     display.textContent = currentVal;
     }
-    
 });
 button9.addEventListener("click", ()=> {
-    if(currentVal.length<=9){
+    if(currentVal.length <=9){
     currentVal += 9;
     display.textContent = currentVal;
     }
-    
 });
 button0.addEventListener("click", ()=> {
-    if(currentVal.length<=9){
+    if(currentVal.length <=9){
     currentVal += 0;
     display.textContent = currentVal;
     }
 });
 
 point.addEventListener("click", ()=> {
-    if(currentVal.length<=9 ){
+    if(!currentVal.includes('.') && currentVal.length <=9 ){
     currentVal += ".";
     display.textContent = currentVal;
     }
-    
 });
 
-// i want to to add to valArray when the operators are selected.
-// this will first parse the value then add it to the array.
-// when the ac is selected it clears out the array.
-// when i press equals or any operator the value continues to work on the 
-// the array. 
 
 
+function add(){
+    if(previousVal ===0){
+        previousVal = parseFloat(currentVal);
+        currentVal = "" ;
+    } 
+    else{
+        currentRes = previousVal +  parseFloat(currentVal);
+        previousVal = currentRes;
+        display.textContent = currentRes;
+        currentVal = "" ;
+    }
+    operand = "+";
+}
 plus.addEventListener("click", ()=> {
-    if(currentVal === "" || currentVal === NaN ){  
-        currentVal=0;
-        currentResult += currentVal;
-        inputArray.push({sign:"+" , value:currentVal,});
-    }
-    else {
-        currentVal= parseFloat(currentVal);
-        currentResult += currentVal;
-        inputArray.push({sign:"+" , value:currentVal,});
-    }    
-    
-    currentVal = "";
-    display.textContent = currentResult;  
+    check();
+    add();
 });
 
+function subtract(){
+    if(previousVal ===0){
+        previousVal = parseFloat(currentVal);
+        currentVal = "" ;
+    } 
+    else{
+        currentRes = previousVal -  parseFloat(currentVal);
+        previousVal = currentRes;
+        display.textContent = currentRes;
+        currentVal = "" ;
+    }
+   operand = "-";
+}
 minus.addEventListener("click", ()=> {
-    if(currentVal === "" || currentVal === NaN ){  
-        currentVal=0;
-        currentResult -= currentVal;
-        inputArray.push({sign:"-" , value:currentVal,});
+    check();
+    subtract();
+});
+
+function times(){
+    if(currentVal !== ''){
+        if(previousVal ===0){
+            previousVal = parseFloat(currentVal);
+            currentVal = "" ;
+        } 
+        else{
+            currentRes = previousVal * parseFloat(currentVal);
+            previousVal = currentRes;
+            display.textContent = currentRes;
+            currentVal = "" ;
+        }
     }
-    else {
-        currentVal= parseFloat(currentVal);
-        currentResult -= currentVal;
-        inputArray.push({sign:"-" , value:currentVal,});
-    }  
     
-    currentVal = "";
-    display.textContent = currentResult;
+   operand = "*";
+}
+multiply.addEventListener("click", ()=> {
+    check();
+    times();
+});
+
+function fraction(){
+    if(currentVal !== ''){
+        if(previousVal ===0){
+            previousVal = parseFloat(currentVal);
+            currentVal = "" ;
+        } 
+        else{
+            currentRes = previousVal / parseFloat(currentVal);
+            previousVal = currentRes;
+            display.textContent = currentRes;
+            currentVal = "" ;
+        }
+    }
+    operand = "/";
+}
+divide.addEventListener("click", ()=> {
+    check();
+    fraction();
     
 });
 
-equals.addEventListener("click", ()=> {
-    let lastSign = inputArray[inputArray.length -1].sign;
-    
-    if(lastSign === "+"){
-        display.textContent = currentResult + parseFloat(currentVal);
-    } else 
-    if(lastSign === "-"){
-        display.textContent = currentResult - parseFloat(currentVal);
+equals.addEventListener("click", ()=> { 
+    check();
+     if(operand === "+"){
+        add();
+     } 
+     if(operand === "-"){
+        subtract();
+     }
+     if(operand === "*"){
+        times();
+     }
+     if(operand === "/"){
+        fraction();
+     }
+     
+});
 
-    } else 
-    if(lastSign === "*"){
-        display.textContent = currentResult * parseFloat(currentVal);
-
-    } else
-    if(lastSign === "/"){
-    display.textContent = currentResult / parseFloat(currentVal);
+function  check(){
+    if(currentVal === ""&& previousVal === 0){
+        currentVal = 0;
     }
-    else 
-    if(!lastSign){
-        display.textContent = currentResult ;
-
-    }
-
-})
+   if(parseFloat(currentVal) === 0 && operand ==='*' ){
+    console.log("multiplying by 0");
+    console.log(`this is the previousVal ${previousVal} and the currentVal = ${currentVal} and the currentRes is= ${currentRes} `);
+   }if(parseFloat(currentVal) === 0  && operand ==='/'){
+    console.log("dividing by 0");
+    console.log(`this is the previousVal ${previousVal} and the currentVal = ${currentVal} and the currentRes is= ${currentRes} `);
+   }
+   
+};
