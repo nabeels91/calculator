@@ -118,7 +118,7 @@ function add(){
     else{
         currentRes = previousVal +  val;
         previousVal = currentRes;
-        display.textContent = currentRes;
+        display.textContent = to2DecPlaces(currentRes);
         
     }
     currentVal = "";
@@ -138,7 +138,7 @@ function subtract(){
     else{
         currentRes = previousVal -  val;
         previousVal = currentRes;
-        display.textContent = currentRes;
+        display.textContent = to2DecPlaces(currentRes);
         
     }
    currentVal = "" ;
@@ -158,7 +158,7 @@ function times(){
         else{
             currentRes = previousVal * parseFloat(currentVal);
             previousVal = currentRes;
-            display.textContent = currentRes;
+            display.textContent = to2DecPlaces(currentRes);
             currentVal = "" ;
         }
     }
@@ -179,7 +179,7 @@ function fraction(){
         else{
             currentRes = previousVal / parseFloat(currentVal);
             previousVal = currentRes;
-            display.textContent = currentRes;
+            display.textContent = to2DecPlaces(currentRes);
             currentVal = "" ;
         }
     }
@@ -211,11 +211,19 @@ function  check(){
     if(currentVal === "" && previousVal === 0){
         currentVal = "0";
     } 
-    if(currentRes > 99999999999 || previousVal >= 99999999999){
+    if(currentRes >= 9999999999  || previousVal >= 9999999999){
         currentRes= 0;
         previousVal = 0;
         display.textContent = "Too Large"
     }
     return currentVal === "" ? 0 : parseFloat(currentVal);
    
+}
+
+function to2DecPlaces(num) {
+    if (num % 1 === 0) {
+        return num.toString();
+    }
+    // Otherwise, return with 2 decimal places
+    return num.toFixed(3);
 }
