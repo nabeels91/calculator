@@ -110,42 +110,46 @@ point.addEventListener("click", ()=> {
 
 
 function add(){
-    if(previousVal ===0){
-        previousVal = parseFloat(currentVal);
-        currentVal = "" ;
+    operand = "+";
+    const val = check();
+    if(previousVal ===0 ){
+        previousVal = val;
     } 
     else{
-        currentRes = previousVal +  parseFloat(currentVal);
+        currentRes = previousVal +  val;
         previousVal = currentRes;
         display.textContent = currentRes;
-        currentVal = "" ;
+        
     }
-    operand = "+";
+    currentVal = "";
 }
 plus.addEventListener("click", ()=> {
-    check();
+    
     add();
 });
 
 function subtract(){
+    operand = "-";
+    const val = check();
     if(previousVal ===0){
-        previousVal = parseFloat(currentVal);
-        currentVal = "" ;
+        previousVal = val;
+        
     } 
     else{
-        currentRes = previousVal -  parseFloat(currentVal);
+        currentRes = previousVal -  val;
         previousVal = currentRes;
         display.textContent = currentRes;
-        currentVal = "" ;
+        
     }
-   operand = "-";
+   currentVal = "" ;
 }
 minus.addEventListener("click", ()=> {
-    check();
+    
     subtract();
 });
 
 function times(){
+    operand = "*";
     if(currentVal !== ''){
         if(previousVal ===0){
             previousVal = parseFloat(currentVal);
@@ -158,15 +162,15 @@ function times(){
             currentVal = "" ;
         }
     }
-    
-   operand = "*";
+    check();
+   
 }
 multiply.addEventListener("click", ()=> {
-    check();
     times();
 });
 
 function fraction(){
+    operand = "/";
     if(currentVal !== ''){
         if(previousVal ===0){
             previousVal = parseFloat(currentVal);
@@ -179,10 +183,9 @@ function fraction(){
             currentVal = "" ;
         }
     }
-    operand = "/";
+     check();
 }
 divide.addEventListener("click", ()=> {
-    check();
     fraction();
     
 });
@@ -205,15 +208,14 @@ equals.addEventListener("click", ()=> {
 });
 
 function  check(){
-    if(currentVal === ""&& previousVal === 0){
-        currentVal = 0;
+    if(currentVal === "" && previousVal === 0){
+        currentVal = "0";
+    } 
+    if(currentRes > 99999999999 || previousVal >= 99999999999){
+        currentRes= 0;
+        previousVal = 0;
+        display.textContent = "Too Large"
     }
-   if(parseFloat(currentVal) === 0 && operand ==='*' ){
-    console.log("multiplying by 0");
-    console.log(`this is the previousVal ${previousVal} and the currentVal = ${currentVal} and the currentRes is= ${currentRes} `);
-   }if(parseFloat(currentVal) === 0  && operand ==='/'){
-    console.log("dividing by 0");
-    console.log(`this is the previousVal ${previousVal} and the currentVal = ${currentVal} and the currentRes is= ${currentRes} `);
-   }
+    return currentVal === "" ? 0 : parseFloat(currentVal);
    
-};
+}
